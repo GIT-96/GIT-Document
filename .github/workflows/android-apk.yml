@@ -31,10 +31,17 @@ jobs:
           gradle-version: '8.9'
       - name: Build debug APK
         run: gradle --no-daemon --stacktrace :app:assembleDebug
+      - name: Verify APK package and signature
+        run: |
+          APK=app/build/outputs/apk/debug/app-debug.apk
+          test -s "$APK"
+          ls -lh "$APK"
+          "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK" | head -n 8
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$APK"
       - name: Name APK
-        run: cp app/build/outputs/apk/debug/app-debug.apk GIT-AI-Document-v1.0.0-debug.apk
+        run: cp app/build/outputs/apk/debug/app-debug.apk GIT-AI-Document-v1.0.1-debug.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: GIT-AI-Document-v1.0.0-debug
-          path: GIT-AI-Document-v1.0.0-debug.apk
+          name: GIT-AI-Document-v1.0.1-debug
+          path: GIT-AI-Document-v1.0.1-debug.apk
           retention-days: 30
