@@ -1,5 +1,5 @@
 package com.git.aidocument;
-import android.app.*; import android.os.*; import android.content.*; import android.net.Uri; import android.webkit.*; import java.io.*; import java.nio.charset.StandardCharsets;
+import android.app.*; import android.widget.Toast; import android.os.*; import android.content.*; import android.net.Uri; import android.webkit.*; import java.io.*; import java.nio.charset.StandardCharsets;
 public class MainActivity extends Activity {
  WebView web; String currentName="Ghi-chu.txt", pending=""; static final int OPEN=100,SAVE=101;
  @Override public void onCreate(Bundle b){super.onCreate(b);getWindow().setStatusBarColor(0xfff7faff);getWindow().setNavigationBarColor(0xffffffff);getWindow().getDecorView().setSystemUiVisibility(android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);web=new WebView(this);setContentView(web);web.getSettings().setJavaScriptEnabled(true);web.addJavascriptInterface(new Bridge(),"Android");web.loadUrl("file:///android_asset/index.html");}
